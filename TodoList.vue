@@ -16,12 +16,11 @@
       leave-active-class="animated fadeOutDown"
     >
       <todo-items
-        v-for="(item, index) in todoList"
-        :key="item.id"
+        v-for="(item, id) in todoList"
+        :key="id"
         :item="item"
-        :index="index"
-        v-bind:checked="checkTodo"
-        @removedTodo="removeTodo"
+        @removedTodo="removeTodo(item.id)"
+        @checkedItem="checkedItem(item)"
       >
       </todo-items>
     </transition-group>
@@ -54,24 +53,24 @@ export default {
         return;
       }
       this.todoList.push({
-        id: this.idTodo,
+        id: Date.now(),
         title: this.todoInput,
-        completed: this.false,
+        completed: false,
       });
 
       this.todoInput = "";
       this.idTodo++;
     },
-    removeTodo(index) {
-      this.todoList.splice(index, 1);
+    removeTodo(id) {
+      this.todolist = this.todolist.filter((item) => item.id !== id);
     },
-    checkTodo(item) {
+    checkedItem(item) {
       item.completed = !item.completed;
     },
   },
   computed: {
     itemsLeft() {
-      return this.todoList.filter((item) => !item.completed).length;
+      return this.todoList.filter((item) => item.completed === false).length;
     },
   },
 };

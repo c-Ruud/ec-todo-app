@@ -1,9 +1,9 @@
 <template>
   <div class="todo-items">
     <div class="todo-item">
-      <input type="checkbox" v-model="completed" v-on:input="checkTodo" />
-      <div :class="{ completed: completed }">{{ title }}</div>
-      <button class="remove-item" @click="removeTodo(index)">X</button>
+      <input type="checkbox" @click="isChecked" :checkedItem="item.completed" />
+      <div :class="{ completed: item.completed }">{{ item.title }}</div>
+      <button @click="$emit('removedTodo', id)" class="remove-item">X</button>
     </div>
     <hr />
   </div>
@@ -13,30 +13,14 @@
 export default {
   name: "todo-item",
   props: {
-    item: {
-      type: Object,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      id: this.item.id,
-      title: this.item.title,
-      completed: this.item.completed,
-    };
+    item: Object,
   },
   methods: {
-    removeTodo(index) {
-      this.$emit("removedTodo", index);
-    },
-    checkTodo() {
-      this.$emit("check");
+    isChecked() {
+      this.$emit("checkedItem");
     },
   },
+  emits: ["removedTodo", "checkedItem"],
 };
 </script>
 
