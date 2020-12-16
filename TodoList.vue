@@ -16,8 +16,8 @@
       leave-active-class="animated fadeOutDown"
     >
       <todo-items
-        v-for="(item, id) in todoList"
-        :key="id"
+        v-for="item in todoList"
+        :key="item.id"
         :item="item"
         @removedTodo="removeTodo(item.id)"
         @checkedItem="checkedItem(item)"
@@ -62,7 +62,7 @@ export default {
       this.idTodo++;
     },
     removeTodo(id) {
-      this.todolist = this.todolist.filter((item) => item.id !== id);
+      this.todoList = this.todoList.filter((item) => item.id !== id);
     },
     checkedItem(item) {
       item.completed = !item.completed;

@@ -3,7 +3,9 @@
     <div class="todo-item">
       <input type="checkbox" @click="isChecked" :checkedItem="item.completed" />
       <div :class="{ completed: item.completed }">{{ item.title }}</div>
-      <button @click="$emit('removedTodo', id)" class="remove-item">X</button>
+      <button @click="$emit('removedTodo', item.id)" class="remove-item">
+        X
+      </button>
     </div>
     <hr />
   </div>
